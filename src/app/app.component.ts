@@ -39,4 +39,9 @@ export class AppComponent implements OnInit{
     this.mostrar=!this.mostrar
     this.estudiantes=this.estudiantesService.getEstudiantes() 
   }
+
+  borrar(id:number):void{
+    this.estudiantesService.delEstudiante(id)
+    this.estudiantes=this.estudiantesService.getEstudiantes() 
+  }
 }

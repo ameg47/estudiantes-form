@@ -16,4 +16,7 @@ export class EstudianteService {
     return this.estudiantes
   }
 
+  delEstudiante(id:number):void {
+    this.estudiantes=this.estudiantes.filter(e=>e.id!==id)
+  }
 }

@@ -26,7 +26,7 @@
           min="1"
           max="99"
           class="px-3 py-1 bg-white border border-solid border-gray-300"
-          required
+          
         >
       </label>
       <label class="mb-2 flex flex-col">
@@ -34,7 +34,7 @@
         <input type="text"
           formControlName="telefono"
           class="px-3 py-1 bg-white border border-solid border-gray-300"
-          required
+          
         >
       </label>
       <button type="submit" 
@@ -59,6 +59,11 @@
           <p class="text-lg my-1">Nombre: {{estudiante.nombre}} {{estudiante.apellido}}</p>
           <p class="text-lg my-1">Edad: {{estudiante.edad}} años</p>
           <p class="text-lg my-1">Telefono: {{estudiante.telefono}}</p>
+          <button (click)="borrar(estudiante.id)" 
+            class="px-2 py-1 w-fit flex self-center bg-red-600 text-white rounded hover:bg-red-700 hover:shadow-lg active:bg-red-800 active:shadow-lg"
+            >
+            Borrar
+          </button>
         </li>
       </ul>
     </div>
