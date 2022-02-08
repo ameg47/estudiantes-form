@@ -64,5 +64,6 @@ export class AppComponent implements OnInit{
     this.estudiantesService.delEstudiante(id)
     this.estudiantesService.addEstudiante(this.estudiante)
     this.estudiantes=this.estudiantesService.getEstudiantes() 
+    this.formularioEstudiante.reset()
   }
 }
