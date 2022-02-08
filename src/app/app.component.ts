@@ -1,10 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { EstudianteService } from './estudiante.service';
+import { Estudiante } from './modules';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'estudiante';
+export class AppComponent implements OnInit{
+  formularioEstudiante!: FormGroup;
+  estudiante!: Estudiante
+  estudiantes!: Array<Estudiante>
+  mostrar: boolean=false
+
+  constructor(private estudiantesService: EstudianteService){}
+  ngOnInit(): void {
+      this.formularioEstudiante = new FormGroup({
+        nombre: new FormControl(''),
+        apellido: new FormControl(''),
+        edad: new FormControl(''),
+        telefono: new FormControl('')
+      })
+  }
+
+  onSubmit(){
+    this.estudiante= {
+      id:Math.floor(Math.random()*10000),
+      nombre: this.formularioEstudiante.get('nombre')!.value,
+      apellido: this.formularioEstudiante.get('apellido')!.value,
+      edad: this.formularioEstudiante.get('edad')!.value,
+      telefono: this.formularioEstudiante.get('telefono')!.value,
+    }
+    this.estudiantesService.addEstudiante(this.estudiante)
+  }
+  
+  mostrarEstudiantes(){
+    this.mostrar=!this.mostrar
+    this.estudiantes=this.estudiantesService.getEstudiantes() 
+  }
 }
