@@ -13,6 +13,8 @@ export class AppComponent implements OnInit{
   estudiante!: Estudiante
   estudiantes!: Array<Estudiante>
   mostrar: boolean=false
+  editar: boolean=false
+  editarId!:number
 
   constructor(private estudiantesService: EstudianteService){}
   ngOnInit(): void {
@@ -42,6 +44,25 @@ export class AppComponent implements OnInit{
 
   borrar(id:number):void{
     this.estudiantesService.delEstudiante(id)
+    this.estudiantes=this.estudiantesService.getEstudiantes() 
+  }
+
+  edit(id:number):void{
+    this.editar= !this.editar
+    this.estudiante= this.estudiantesService.getEstudianteId(id) 
+  }
+
+  onSubmitEdit(id:number):void{
+    this.editar= !this.editar
+    this.estudiante= {
+      ... this.estudiante,
+      nombre: this.formularioEstudiante.get('nombre')!.value,
+      apellido: this.formularioEstudiante.get('apellido')!.value,
+      edad: this.formularioEstudiante.get('edad')!.value,
+      telefono: this.formularioEstudiante.get('telefono')!.value,
+    }
+    this.estudiantesService.delEstudiante(id)
+    this.estudiantesService.addEstudiante(this.estudiante)
     this.estudiantes=this.estudiantesService.getEstudiantes() 
   }
 }

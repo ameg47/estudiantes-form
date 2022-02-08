@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center">
-  <div class="p-6 my-2 rounded-lg shadow-lg bg-gray-100 w-fit">
+  <div class="p-6 my-2 rounded-lg shadow-lg bg-gray-100 w-fit" *ngIf="!editar">
     <h2 class="text-2xl text-center mb-4">Formulario de estudiante</h2>
 
     <form [formGroup]="formularioEstudiante" ngNativeValidate  (ngSubmit)="onSubmit()" class="flex flex-col space-y-3">
@@ -26,7 +26,7 @@
           min="1"
           max="99"
           class="px-3 py-1 bg-white border border-solid border-gray-300"
-          
+          required
         >
       </label>
       <label class="mb-2 flex flex-col">
@@ -34,7 +34,7 @@
         <input type="text"
           formControlName="telefono"
           class="px-3 py-1 bg-white border border-solid border-gray-300"
-          
+          required
         >
       </label>
       <button type="submit" 
@@ -44,7 +44,7 @@
       </button>
     </form>
   </div>
-  <div class="my-4 px-20 flex flex-col content-center">
+  <div class="my-4 px-20 flex flex-col content-center" *ngIf="!editar">
     <button (click)="mostrarEstudiantes()"
       class="px-6 py-3 w-48 flex self-center bg-blue-600 text-white rounded hover:bg-blue-700 hover:shadow-lg active:bg-blue-800 active:shadow-lg"
       >
@@ -59,13 +59,68 @@
           <p class="text-lg my-1">Nombre: {{estudiante.nombre}} {{estudiante.apellido}}</p>
           <p class="text-lg my-1">Edad: {{estudiante.edad}} años</p>
           <p class="text-lg my-1">Telefono: {{estudiante.telefono}}</p>
-          <button (click)="borrar(estudiante.id)" 
-            class="px-2 py-1 w-fit flex self-center bg-red-600 text-white rounded hover:bg-red-700 hover:shadow-lg active:bg-red-800 active:shadow-lg"
-            >
-            Borrar
-          </button>
+          <div class="flex space-x-2">
+            <button (click)="edit(estudiante.id)" 
+              class="px-2 py-1 w-fit flex self-center bg-green-600 text-white rounded hover:bg-green-700 hover:shadow-lg active:bg-green-800 active:shadow-lg"
+              >
+              Editar
+            </button>
+            <button (click)="borrar(estudiante.id)" 
+              class="px-2 py-1 w-fit flex self-center bg-red-600 text-white rounded hover:bg-red-700 hover:shadow-lg active:bg-red-800 active:shadow-lg"
+              >
+              Borrar
+            </button>
+          </div>
         </li>
       </ul>
     </div>
+  </div>
+  <div class="p-6 my-2 rounded-lg shadow-lg bg-gray-100 w-fit" *ngIf="editar">
+      <h2 class="text-2xl text-center mb-4">Editar estudiante</h2>
+      <form [formGroup]="formularioEstudiante" ngNativeValidate  (ngSubmit)="onSubmitEdit(estudiante.id)" class="flex flex-col space-y-3">
+        <label class="mb-2 flex flex-col">
+          <span>Nuevo nombre:</span>
+          <input type="text"
+            formControlName="nombre"
+            class="px-3 py-1 bg-white border border-solid border-gray-300"
+            value="{{estudiante.nombre}}"
+            required
+          >
+        </label>
+        <label class="mb-2 flex flex-col">
+          <span>Nuevo apellido:</span>
+          <input type="text"
+            formControlName="apellido"
+            class="px-3 py-1 bg-white border border-solid border-gray-300"
+            value="{{estudiante.apellido}}"
+            required
+          >
+        </label>
+        <label class="mb-2 flex flex-col">
+          <span>Nueva edad:</span>
+          <input type="number"
+            formControlName="edad"
+            min="1"
+            max="99"
+            value="{{estudiante.edad}}"
+            class="px-3 py-1 bg-white border border-solid border-gray-300"
+            required
+          >
+        </label>
+        <label class="mb-2 flex flex-col">
+          <span>Nuevo telefono:</span>
+          <input type="text"
+            formControlName="telefono"
+            value="{{estudiante.telefono}}"
+            class="px-3 py-1 bg-white border border-solid border-gray-300"
+            required
+          >
+        </label>
+        <button type="submit" 
+          class="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 hover:shadow-lg active:bg-blue-800 active:shadow-lg"
+        >
+          Guardar
+        </button>
+      </form>
   </div>
 </div>
